@@ -11,10 +11,10 @@
 		#ball, #bball{
 			cursor: pointer;
 		}
-		#svg, #svg2{
+		#svg, #svg2, #svg3{
 			border: 1px solid #ccc;
 			width: 48%;
-			height: 800px;
+			height: 400px;
 		}
 		#svg text{
 			cursor: pointer;
@@ -26,19 +26,38 @@
 	<div><span id="sum">1000</span> руб.</div> 
 	<svg id="svg"></svg> 
 	<svg id="svg2"></svg> 
+	<svg id="svg3"></svg> 
 	<script src="/js/snap.svg-min.js"></script>
 	<script src="/js/snaptut-freetransform.js"></script>
 	<script type="text/javascript">
 		var _sum = 1000;
+		var _trStep = 50;
 		window.onload = function() {
 			var s = Snap("#svg");
 			var s2 = Snap("#svg2");
+			var s3 = Snap("#svg3");
 			var g = s.group();
 			var g2 = s2.group();
+			var g3 = s3.group();
 			var clink = s.text(600, 50, "Клонировать");
+			
+			//third window
+			Snap.load("svg/ball_v1.svg", function(f){
+				g3.append(f);
+				//var ball = g3.select("#path1587");
+        		g3.click( function() {
+					changePrice(50);
+					_trStep+=50;
+					var nb = this.clone().transform( 't'+_trStep+','+_trStep).drag();
+					//console.log(nb.select("path"));
+					//nb.select("path").attr('fill', "url(#id"+getRandomInt(2,270)+")");
+				} );
+				g3.drag();
+			});
 
+			//second window
 			Snap.load("svg/arka.svg", function(f){
-				//second window
+				
 				g2.append(f);
         		g2.ftCreateHandles();
 			});
