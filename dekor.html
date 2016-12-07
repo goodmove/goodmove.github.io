@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#ball, #bball{
+			cursor: pointer;
+		}
+		#svg{
+			border: 1px solid #ccc;
+			width: 100%;
+			height: 1200px;
+		}
+		#svg text{
+			cursor: pointer;
+		}
+	</style>
+	
+</head>
+<body>
+	<svg id="svg"></svg> 
+	<script src="/js/snap.svg-min.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			var s = Snap("#svg");
+			var g = s.group();
+			var clink = s.text(600, 50, "Клонировать");
+			var slink = s.text(600, 100, "Масштабировать");
+			
+
+			Snap.load("svg/arka.svg", function(f) {
+				
+    			var grln = g.append(f);
+    			//change color
+				// ball = g.select("#path680");
+				
+				// clink.click( function() {
+				// 	console.log(ball.class());
+				
+				// 	ball.toggleClass('fil98', true);
+				
+					 
+				// } );
+
+				//scale
+
+				slink.click( function(){
+					var dragging = 0;
+					var handleGroup;
+					var start = function() {
+					        grln.data('origTransform', grln.transform().local);
+					}
+
+					var move = function(dx,dy) {
+					        var scale = 1 + dx / 50;
+					        grln.attr({
+					                transform: grln.data('origTransform') + (grln.data('origTransform') ? "S" : "s") + scale
+					        });
+					}
+
+					var stop = function() {
+						dragging = 0;
+		                s.append(grln);
+		                handleGroup.selectAll('handler').remove();
+		                handleGroup.remove();
+					};
+
+			        if( dragging == 0 ) {
+			                dragging = 1;
+			                var bb = grln.getBBox();
+			                var handle = new Array();
+			                handle[0] = s.circle(bb.x,bb.y,10).attr({class: 'handler'});;
+			                handle[1] = s.circle(bb.x+bb.width, bb.y, 10).attr({class: 'handler'});
+			                handleGroup = s.group(grln, handle[0], handle[1]);
+			                handleGroup.drag(move,start,stop);
+			        } else {
+			                dragging = 0;
+			                s.append(grln);
+			                handleGroup.selectAll('handler').remove();
+			                handleGroup.remove();
+		        	}
+				});
+
+				//clone
+				var trStep = 50;
+				clink.click(function(){
+					trStep+=50;
+					grln.clone().transform( 't'+trStep+','+trStep).drag();
+				});
+    			
+    			grln.drag();
+			});
+		
+			function addHandleFunc(obj) {
+				var dragging = 0;
+				var handleGroup;
+				var start = function() {
+				        this.data('origTransform', this.transform().local);
+				}
+
+				var move = function(dx,dy) {
+				        var scale = 1 + dx / 50;
+				        this.attr({
+				                transform: this.data('origTransform') + (this.data('origTransform') ? "S" : "s") + scale
+				        });
+				}
+
+				var stop = function() {};
+		        if( dragging == 0 ) {
+		                dragging = 1;
+		                var bb = obj.getBBox();
+		                var handle = new Array();
+		                handle[0] = s.circle(bb.x,bb.y,10).attr({class: 'handler'});;
+		                handle[1] = s.circle(bb.x+bb.width, bb.y, 10).attr({class: 'handler'});
+		                handleGroup = s.group(obj, handle[0], handle[1]);
+		                handleGroup.drag(move,start,stop);
+		        } else {
+		                dragging = 0;
+		                s.append(obj);
+		                handleGroup.selectAll('handler').remove();
+		                handleGroup.remove();
+		        }
+			}
+
+			
+		
+			function getRandomInt(min, max) {
+			    return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+
+			function toggleColor(c1, c2){
+				if(flag == true){
+					ball.fill(c1);
+			      flag = false;
+			    }else{
+					ball.fill(c2);
+			      flag = true;
+			    }
+			}
+		}
+		
+	</script>
+</body>
+</html>
