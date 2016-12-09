@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	
+</head>
+<body>
+	<script src="/js/snap.svg-min.js"></script>
+	<script src="/js/snaptut-freetransform.js"></script>
+	<script type="text/javascript">
+		var paper = Snap(1200, 1200),
+			g = paper.group(),
+			gradients = [
+				paper.gradient("r(0.5, 0.5, 0.5)#fff-#ffdd7f-#ffbf0f-#fabb0d"),
+				paper.gradient("r(0.5, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e"),
+				paper.gradient("r(0.5, 0.5, 0.5)#fff-#98eb6c-#4ac23a-#48b81b"),
+				paper.gradient("r(0.5, 0.5, 0.5)#fff-#9a63c7"),
+				paper.gradient("r(0.5, 0.5, 0.5)#fff-#0c63c7"),
+				paper.gradient("r(0.5, 0.5, 0.5)#fff-#c70c9d"),
+				paper.gradient("r(0.5, 0.5, 0.5)#fff-#ff4711")
+			],
+			clink = paper.text(600, 50, "Менять цвет");
+		
+		// var style = { fill : gr, stroke: "#aaa", strokeWidth: 6};
+		// var circle = paper.circle(150, 150, 100);
+		// circle.attr(style).drag();
+		Snap.load("svg/arka_new_v2.svg", function(f){
+			g.append(f).ftCreateHandles();
+			chColorGrl(gradients[0], gradients[1]);
+			clink.click( function() {
+				chColorGrl(gradients[getRandomInt(0,6)], gradients[getRandomInt(0,6)]);
+				
+				console.log();
+				//ball.attr('fill', gr);
+			} );
+		});
+
+		function chColorGrl(gr1, gr2) {
+			var balls = g.selectAll("#svg2 g#garland path"),
+				bc = balls.length;
+
+			for (var i = 0; i < bc; i++) {
+				if(balls[i].hasClass('oddball'))
+					balls[i].attr('fill', gr1);
+				else
+					balls[i].attr('fill', gr2);
+			}
+		}
+
+		function getRandomInt(min, max) {
+		    return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+		
+	</script>
+</body>
+</html>

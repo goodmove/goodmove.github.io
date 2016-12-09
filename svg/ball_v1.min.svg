@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="90px" height="241px" version="1.1" viewBox="0 0 90 241">
+<defs>
+  <linearGradient
+   id="id2"
+   gradientUnits="userSpaceOnUse"
+   x1="10343.4"
+   y1="4757.6299"
+   x2="10463.3"
+   y2="4757.6299">
+   <stop offset="0" style="stop-opacity:1; stop-color:#ECECEC" id="stop17"/>
+   <stop offset="0.301961" style="stop-opacity:1; stop-color:#ECECEC" id="stop19"/>
+   <stop offset="0.870588" style="stop-opacity:1; stop-color:#C6C6C6" id="stop21"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#DADADA" id="stop23"/>
+  </linearGradient>
+  <linearGradient
+   id="id4"
+   gradientUnits="userSpaceOnUse"
+   x1="10164.8"
+   y1="4551.2202"
+   x2="10641.9"
+   y2="4551.2202"><stop offset="0" style="stop-opacity:1; stop-color:#DADADA" id="stop31"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#B3B3B3" id="stop33"/>
+  </linearGradient>
+  <linearGradient
+   id="id46"
+   gradientUnits="userSpaceOnUse"
+   x1="10353.4"
+   y1="6529.9902"
+   x2="10453.3"
+   y2="6529.9902">
+   <stop offset="0" style="stop-opacity:1; stop-color:#ECECEC" id="stop17"/>
+   <stop offset="0.301961" style="stop-opacity:1; stop-color:#ECECEC" id="stop19"/>
+   <stop offset="0.870588" style="stop-opacity:1; stop-color:#C6C6C6" id="stop21"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#DADADA" id="stop23"/>
+  </linearGradient>
+  <linearGradient
+   id="id69"
+   gradientUnits="userSpaceOnUse"
+   x1="10353.4"
+   y1="4777.6299"
+   x2="10453.3"
+   y2="4777.6299">
+   <stop offset="0" style="stop-opacity:1; stop-color:#C6C6C6" id="stop168"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#B3B3B3" id="stop170"/>
+  </linearGradient>
+  <linearGradient
+   id="id108"
+   gradientUnits="userSpaceOnUse"
+   x1="10193.8"
+   y1="4659.0298"
+   x2="10840.7"
+   y2="4658.9902">
+   <stop offset="0" style="stop-opacity:1; stop-color:#ECECEC" id="stop249"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#C6C6C6" id="stop251"/>
+  </linearGradient>
+  <linearGradient
+   id="linearGradient5079"
+   gradientUnits="userSpaceOnUse"
+   x1="10343.4"
+   y1="4757.6299"
+   x2="10463.3"
+   y2="4757.6299">
+   <stop offset="0" style="stop-opacity:1; stop-color:#ECECEC" id="stop17"/>
+   <stop offset="0.301961" style="stop-opacity:1; stop-color:#ECECEC" id="stop19"/>
+   <stop offset="0.870588" style="stop-opacity:1; stop-color:#C6C6C6" id="stop21"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#DADADA" id="stop23"/>
+  </linearGradient>
+  <radialGradient
+   id="id124"
+   gradientUnits="userSpaceOnUse"
+   gradientTransform="matrix(1.25899,1.25899,-1.25899,1.25899,675,-7499)"
+   cx="5608.27"
+   cy="1690.21"
+   r="214.37"
+   fx="5608.27"
+   fy="1690.21">
+       <stop offset="0" style="stop-opacity:1; stop-color:white" id="stop301"/>
+       <stop offset="0.258824" style="stop-opacity:1; stop-color:#FF6375" id="stop303"/>
+       <stop offset="0.470588" style="stop-opacity:1; stop-color:#E30D11" id="stop305"/>
+       <stop offset="0.811765" style="stop-opacity:1; stop-color:#7A1719" id="stop307"/>
+       <stop offset="1" style="stop-opacity:1; stop-color:#C4140E" id="stop309"/>
+  </radialGradient>
+  </defs>
+  <g>
+		<path fill="url(#id124)" id="path1587" d="m 11800,2254 c 64,1061 -847,2350 -1397,2350 -549,0 -1460,-1289 -1396,-2350 113,-1867 2679,-1867 2793,0 z"/>
+		<polygon id="polygon1591" points="10403,4750 10653,4531 10153,4531" fill="url(#id108)"/>
+		<polygon id="polygon1593" points="10619,4561 10642,4541 10165,4541 10188,4561" fill="url(#id4)"/>
+		<path id="path1595" d="m 9525,1437 c -204,228 -300,522 -318,829 -18,291 47,595 148,868 7,20 14,39 22,59 13,32 38,54 72,61 35,7 67,-2 92,-27 l 234,-234 c 27,-27 36,-65 24,-102 -63,-189 -105,-399 -93,-595 11,-186 61,-373 182,-515 34,-39 31,-98 -6,-135 l -212,-213 c -20,-20 -45,-30 -74,-29 -28,1 -52,12 -71,33 z" fill="#fefefe;fill-opacity:0.50196078"/>
+		<rect id="rect1597" ry="1000" rx="2863" height="20" width="540.00201" y="4531" x="10133" fill="#ececec"/>
+		<rect id="rect1599" height="3647" width="100" y="4706" x="10353" fill="url(#id46)"/>
+		<rect id="rect1601" height="100" width="100" y="4728" x="10353" fill="url(#id69)"/>
+		<rect id="rect1603" height="120" width="120" y="4698" x="10343" fill="url(#linearGradient5079)"/>
+  </g>
+</svg>

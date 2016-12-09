@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	
+</head>
+<body>
+	<script src="/js/snap.svg-min.js"></script>
+	<script type="text/javascript">
+		var paper = Snap(1200, 1200);
+		var style = { fill : "#387", stroke: "#aaa", strokeWidth: 6};
+		// var circle = paper.circle(150, 150, 100);
+		// circle.attr(style).drag();
+		// var rect = paper.rect(300, 200, 200, 250);
+		// rect.attr(style).drag();
+		var path = paper.path('').attr({fill: "transparent", stroke: "#222", strokeWidth: 3}),
+		pathArray = [];
+		function updatePath(){
+			var first = pathArray[0],
+			pathString = 'M '+first.x+','+first.y;
+			pathArray.forEach(function(item, i, arr){
+				pathString += ' L '+item.x+','+item.y;
+			});
+			path.attr('d', pathString);
+
+		}
+		paper.click(function(e){
+			if(e.target.tagName == 'svg'){
+				paper.circle(e.offsetX, e.offsetY, 15)
+						.attr(style)
+						.data('i', pathArray.length)
+						.mouseover(function(){
+							this.stop().animate({r:25}, 1000, mina.elastic)
+						})
+						.mouseout(function(){
+							this.stop().animate({r:15}, 300, mina.easeinout)
+						})
+						.drag(function(dx, dy, x, y, e){
+							this.attr({cx: x, cy: y});
+							currentNode = pathArray[this.data()['i']];
+							currentNode.x = x;
+							currentNode.y = y;
+							updatePath();
+						},
+						function(){
+							path.stop().animate({opacity: 0.3}, 200, mina.easeinout)
+						},
+						function(){
+							path.stop().animate({opacity: 1}, 1000, mina.easeinout)
+						});
+				pathArray.push({x: e.offsetX, y: e.offsetY});
+				updatePath();
+				var pathString = path.attr('d'), coords = e.offsetX + ',' + e.offsetY+ ' ';
+				path.attr('d', ((pathString) ? pathString + 'L ' + coords : 'M ' + coords));
+			}
+		});
+	</script>
+</body>
+</html>
