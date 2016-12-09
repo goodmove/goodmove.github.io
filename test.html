@@ -12,30 +12,107 @@
 	<script type="text/javascript">
 		var paper = Snap(1200, 1200),
 			g = paper.group(),
-			gradients = [
-				paper.gradient("r(0.5, 0.5, 0.5)#fff-#ffdd7f-#ffbf0f-#fabb0d"),
-				paper.gradient("r(0.5, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e"),
-				paper.gradient("r(0.5, 0.5, 0.5)#fff-#98eb6c-#4ac23a-#48b81b"),
-				paper.gradient("r(0.5, 0.5, 0.5)#fff-#9a63c7"),
-				paper.gradient("r(0.5, 0.5, 0.5)#fff-#0c63c7"),
-				paper.gradient("r(0.5, 0.5, 0.5)#fff-#c70c9d"),
-				paper.gradient("r(0.5, 0.5, 0.5)#fff-#ff4711")
-			],
-			clink = paper.text(600, 50, "Менять цвет");
+			pl = paper.group(),
+			gradients = {
+				c1: paper.gradient("r(0.5, 0.5, 0.5)#fff-#fff-#ded1d1-#9d9797"),
+				c2: paper.gradient("r(0.5, 0.5, 0.5)#fff-#FF99CC"),
+				c3: paper.gradient("r(0.5, 0.5, 0.5)#fff-#CC6666"),
+				c4: paper.gradient("r(0.5, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e"),
+				c5: paper.gradient("r(0.5, 0.5, 0.5)#fff-#FF6633"),
+				c6: paper.gradient("r(0.5, 0.5, 0.5)#fff-#FFCCCC"),
+				c7: paper.gradient("r(0.5, 0.5, 0.5)#fff-#993333"),
+				c8: paper.gradient("r(0.5, 0.5, 0.5)#fff-#663333"),
+				c9: paper.gradient("r(0.5, 0.5, 0.5)#fff-#ffdd7f-#ffbf0f-#fabb0d"),
+				c10: paper.gradient("r(0.5, 0.5, 0.5)#fff-#FFCC33"),
+				c11: paper.gradient("r(0.5, 0.5, 0.5)#fff-#33CC66"),
+				c12: paper.gradient("r(0.5, 0.5, 0.5)#fff-#33CC99"),
+				c13: paper.gradient("r(0.5, 0.5, 0.5)#fff-#99CC33"),
+				c14: paper.gradient("r(0.5, 0.5, 0.5)#fff-#339933"),
+				c15: paper.gradient("r(0.5, 0.5, 0.5)#fff-#336633"),
+				c16: paper.gradient("r(0.5, 0.5, 0.5)#fff-#006666"),
+				c17: paper.gradient("r(0.5, 0.5, 0.5)#fff-#339999"),
+				c18: paper.gradient("r(0.5, 0.5, 0.5)#fff-#3399CC"),
+				c19: paper.gradient("r(0.5, 0.5, 0.5)#fff-#336699"),
+				c20: paper.gradient("r(0.5, 0.5, 0.5)#fff-#6699CC"),
+				c21: paper.gradient("r(0.5, 0.5, 0.5)#fff-#9966CC"),
+				c22: paper.gradient("r(0.5, 0.5, 0.5)#fff-#663399"),
+				c23: paper.gradient("r(0.5, 0.5, 0.5)#fff-#333399"),
+				c24: paper.gradient("r(0.5, 0.5, 0.5)#fff-#CC6633"),
+				c25: paper.gradient("r(0.5, 0.5, 0.5)#fff-#663333"),
+				c26: paper.gradient("r(0.5, 0.5, 0.5)#fff-#CCFFFF"),
+				c27: paper.gradient("r(0.5, 0.5, 0.5)#fff-#999999"),
+				c28: paper.gradient("r(0.5, 0.5, 0.5)#fff-#333333"),
+			},
+			stPX = 70,
+			stPY = 640,
+			colors = {
+				c1: "#ffffff",
+				c2: "#FF99CC",
+				c3: "#CC6666",
+				c4: "#c4140e",
+				c5: "#FF6633",
+				c6: "#FFCCCC",
+				c7: "#993333",
+				c8: "#663333",
+				c9: "#fabb0d",
+				c10: "#FFCC33",
+				c11: "#33CC66",
+				c12: "#33CC99",
+				c13: "#99CC33",
+				c14: "#339933",
+				c15: "#336633",
+				c16: "#006666",
+				c17: "#339999",
+				c18: "#3399CC",
+				c19: "#336699",
+				c20: "#6699CC",
+				c21: "#9966CC",
+				c22: "#663399",
+				c23: "#333399",
+				c24: "#CC6633",
+				c25: "#663333",
+				c26: "#CCFFFF",
+				c27: "#999999",
+				c28: "#333333",
+			},
+			clink = paper.text(600, 50, "Случайный цвет");
 		
 		// var style = { fill : gr, stroke: "#aaa", strokeWidth: 6};
 		// var circle = paper.circle(150, 150, 100);
 		// circle.attr(style).drag();
+
+		var currentC = paper.rect(5, 640, 42, 42).attr({stroke: "#000", strokeWidth: 3, fill: colors.c4, cc: "c4"});
+
 		Snap.load("svg/arka_new_v2.svg", function(f){
-			g.append(f).ftCreateHandles();
-			chColorGrl(gradients[0], gradients[1]);
+			g.append(f).transform('s2 t100,100').ftCreateHandles();
+			chColorGrl(gradients.c4, gradients.c9);
+			onClickGrl();
 			clink.click( function() {
-				chColorGrl(gradients[getRandomInt(0,6)], gradients[getRandomInt(0,6)]);
-				
-				console.log();
-				//ball.attr('fill', gr);
+				chColorGrl(gradients['c'+getRandomInt(1,28)], gradients['c'+getRandomInt(1,28)]);
 			} );
 		});
+
+		
+
+		for(var key in colors){
+			var pel = paper.circle(stPX, stPY, 20);
+			pel.attr({fill: colors[key], id: key, stroke: '#000', strokeWidth: 2});
+			if(key == 'c14'){
+				stPX = 70;
+				stPY = 682;
+			}
+			else
+				stPX+=42;
+
+			pel.click(function(){
+				currentC.attr({fill: colors[this.attr('id')], cc: this.attr('id')});
+			});
+		}
+
+		// Snap.load("svg/palette.svg", function(f){
+		// 	pl.append(f).transform('t70,620').drag();
+			
+		// });
 
 		function chColorGrl(gr1, gr2) {
 			var balls = g.selectAll("#svg2 g#garland path"),
@@ -46,6 +123,29 @@
 					balls[i].attr('fill', gr1);
 				else
 					balls[i].attr('fill', gr2);
+			}
+		}
+
+		function onClickGrl() {
+			var balls = g.selectAll("#svg2 g#garland path"),
+				bc = balls.length;
+
+			for (var i = 0; i < bc; i++) {
+				if(balls[i].hasClass('oddball'))
+					balls[i].click(function(){
+						var nb = g.selectAll('#svg2 g#garland path.oddball');
+						for (var j = 0; j < nb.length; j++) {
+							nb[j].attr('fill', gradients[currentC.attr('cc')]);
+						}
+					});
+				else{
+					balls[i].click(function(){
+						var nb = g.selectAll('#svg2 g#garland path.evenball');
+						for (var j = 0; j < nb.length; j++) {
+							nb[j].attr('fill', gradients[currentC.attr('cc')]);
+						}
+					});
+				}
 			}
 		}
 
