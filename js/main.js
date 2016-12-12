@@ -158,8 +158,8 @@ window.onload = function() {
 		Snap.load("svg/screen.svg", function(f){
 			mSc.append(f).ftCreateHandles();
 			//var iconPath = mainSc.circle();
-			if(mG) mSc.insertBefore(mG);
 			if(mT) mSc.insertBefore(mT);
+			if(mG) mSc.insertBefore(mG);
 			
 			/*mSc.click(function(e){
 				
