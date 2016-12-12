@@ -8,7 +8,7 @@
 			handleFill: "silver",
 			handleStrokeDash: "5,5",
 			handleStrokeWidth: "2",
-			handleLength: "75",
+			handleLength: "70",
 			handleRadius: "7",
 			handleLineWidth: 2,
 		};

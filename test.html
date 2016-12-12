@@ -93,7 +93,7 @@
 		});
 
 		
-
+		//palette generating
 		for(var key in colors){
 			var pel = paper.circle(stPX, stPY, 20);
 			pel.attr({fill: colors[key], id: key, stroke: '#000', strokeWidth: 2});
@@ -106,6 +106,10 @@
 
 			pel.click(function(){
 				currentC.attr({fill: colors[this.attr('id')], cc: this.attr('id')});
+				currentC
+				.stop().animate({opacity:0.5}, 300, mina.easeinout, function(){
+					this.stop().animate({opacity:1}, 1000, mina.elastic);
+				});
 			});
 		}
 
@@ -115,10 +119,8 @@
 		// });
 
 		function chColorGrl(gr1, gr2) {
-			var balls = g.selectAll("#svg2 g#garland path"),
-				bc = balls.length;
-
-			for (var i = 0; i < bc; i++) {
+			var balls = g.selectAll("#svg2 g#garland path");
+			for (var i = 0, bc = balls.length; i < bc; i++) {
 				if(balls[i].hasClass('oddball'))
 					balls[i].attr('fill', gr1);
 				else
@@ -127,25 +129,15 @@
 		}
 
 		function onClickGrl() {
-			var balls = g.selectAll("#svg2 g#garland path"),
-				bc = balls.length;
-
-			for (var i = 0; i < bc; i++) {
-				if(balls[i].hasClass('oddball'))
-					balls[i].click(function(){
-						var nb = g.selectAll('#svg2 g#garland path.oddball');
-						for (var j = 0; j < nb.length; j++) {
-							nb[j].attr('fill', gradients[currentC.attr('cc')]);
-						}
-					});
-				else{
-					balls[i].click(function(){
-						var nb = g.selectAll('#svg2 g#garland path.evenball');
-						for (var j = 0; j < nb.length; j++) {
-							nb[j].attr('fill', gradients[currentC.attr('cc')]);
-						}
-					});
-				}
+			var balls = g.selectAll("#svg2 g#garland path");
+			for (var i = 0, bc = balls.length; i < bc; i++) {
+				balls[i].click(function(){
+					var bClass = (this.hasClass('oddball')) ? 'oddball' : 'evenball';
+					var nb = g.selectAll('#svg2 g#garland path.'+bClass);
+					for (var j = 0, nbc = nb.length; j < nbc; j++) {
+						nb[j].attr('fill', gradients[currentC.attr('cc')]);
+					}
+				});
 			}
 		}
 
