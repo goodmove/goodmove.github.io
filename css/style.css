@@ -28,3 +28,8 @@ svg#scene{
 .sidebar-item h4{
 	padding: 10px 0;
 }
+.radialnav {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
