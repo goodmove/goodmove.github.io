@@ -17,9 +17,6 @@ window.onload = function() {
 		t3b2 = tablesSc.rect(180, 20, 10, 40).attr(styleTbls),
 		t3 = tablesSc.group(t3r, t3t, t3b).attr('id', 'p_table'),
 		mainSc = Snap('#scene'),
-		mT = mainSc.group(),
-		mG = mainSc.group(),
-		mSc = mainSc.group(),
 		fBlur = mainSc.filter(Snap.filter.blur(20, 30)),
 		iconRepo = {},
 		objOrd = [],
@@ -148,10 +145,11 @@ window.onload = function() {
 	var sidebarG = document.getElementById('garland-section');
 	sidebarG.onclick=function(){
 		Snap.load("svg/arka_new_v2.svg", function(f){
-			mG.append(f).attr('id','first_garland').drag();
+			var mG = mainSc.group();
+			mG.append(f).drag();
 			objOrd.push(mG);
-			chColorGrl(gradients.c4, gradients.c9);
-			onClickGrl();
+			chColorGrl(gradients.c4, gradients.c9, mG);
+			onClickGrl(mG);
 			mG.click(function(e){
 				makeJoystik(e, this);
 			});
@@ -162,7 +160,8 @@ window.onload = function() {
 	var sidebarSc = document.getElementById('screen-section');
 	sidebarSc.onclick=function(){
 		Snap.load("svg/screen.svg", function(f){
-			mSc.append(f).attr('id','screen').drag();
+			var mSc = mainSc.group();
+			mSc.append(f).drag();
 			objOrd.push(mSc);
 			mSc.click(function(e){
 				makeJoystik(e, this);
@@ -217,11 +216,10 @@ window.onload = function() {
 				btn.click(function(e){
 					var lOr = objOrd.length;
 					//el maybe first or last
-					console.log(objOrd);
 					if( lOr>1){
 						for(var i = 0;i<lOr;i++){
-							if(obj.attr('id') == objOrd[i].attr('id')){
-								if(i==lOr){
+							if(obj == objOrd[i]){
+								if(i==lOr-1){
 									return;
 								}else{
 									//var tmpI = i==0 ? i+1 : i-1;
@@ -240,10 +238,9 @@ window.onload = function() {
 			if(icon == 'inAfter'){
 				btn.click(function(e){
 					var lOr = objOrd.length;
-					console.log(objOrd);
 					if( lOr>1){
 						for(var i = 0;i<lOr;i++){
-							if(obj.attr('id') == objOrd[i].attr('id')){
+							if(obj == objOrd[i]){
 								if(i==0){
 									return;
 								}else{
@@ -266,6 +263,7 @@ window.onload = function() {
 				});
 			}
 		}
+		jContainer.before(obj);
 		
 	}
 	
@@ -275,6 +273,7 @@ window.onload = function() {
 
 	function addTable(){
 		Snap.load("svg/tables.svg", function(f){
+			var mT = mainSc.group();
 			mT.append(f).attr('id', 'first_table').drag();
 			objOrd.push(mT);
 			mT.click(function(e){
@@ -283,8 +282,8 @@ window.onload = function() {
 		});
 	}
 
-	function chColorGrl(gr1, gr2) {
-		var balls = mG.selectAll("#svg2 g#garland path");
+	function chColorGrl(gr1, gr2, obj) {
+		var balls = obj.selectAll("#svg2 g#garland path");
 		for (var i = 0, bc = balls.length; i < bc; i++) {
 			if(balls[i].hasClass('oddball'))
 				balls[i].attr('fill', gr1);
@@ -293,13 +292,13 @@ window.onload = function() {
 		}
 	}
 
-	function onClickGrl() {
-		var balls = mG.selectAll("#svg2 g#garland path");
+	function onClickGrl(obj) {
+		var balls = obj.selectAll("#svg2 g#garland path");
 		for (var i = 0, bc = balls.length; i < bc; i++) {
 			balls[i].dblclick(function(e){
 				//e.stopPropagation();
 				var bClass = (this.hasClass('oddball')) ? 'oddball' : 'evenball';
-				var nb = mG.selectAll('#svg2 g#garland path.'+bClass);
+				var nb = obj.selectAll('#svg2 g#garland path.'+bClass);
 				for (var j = 0, nbc = nb.length; j < nbc; j++) {
 					nb[j].attr('fill', gradients[currentC.attr('cc')]);
 				}
