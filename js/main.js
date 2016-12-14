@@ -138,7 +138,9 @@ window.onload = function() {
 	var sidebarB1 = document.getElementById('ball_1');
 	sidebarB1.onclick=function(){
 		Snap.load("svg/ball_v2.min.svg", function(f){
+			var mBalls = mainSc.group();
 			mBalls.append(f).drag();
+			objOrd.push(mBalls);
 		});
 	}
 
@@ -222,7 +224,6 @@ window.onload = function() {
 								if(i==lOr-1){
 									return;
 								}else{
-									//var tmpI = i==0 ? i+1 : i-1;
 									var tmpI = i+1;
 									var tmp = objOrd[tmpI];
 									obj.before(tmp);
@@ -244,7 +245,6 @@ window.onload = function() {
 								if(i==0){
 									return;
 								}else{
-									//var tmpI = i==0 ? i+1 : i-1;
 									var tmpI = i-1;
 									var tmp = objOrd[tmpI];
 									obj.after(tmp);
@@ -272,13 +272,33 @@ window.onload = function() {
 	}
 
 	function addTable(){
-		Snap.load("svg/tables.svg", function(f){
+		Snap.load("svg/t_table.svg", function(f){
 			var mT = mainSc.group();
 			mT.append(f).attr('id', 'first_table').drag();
 			objOrd.push(mT);
 			mT.click(function(e){
 				makeJoystik(e, this);
 			});
+			var t_cloth = mT.selectAll(".tbl-cloth-gx, .tbl-cloth-gy");
+			var chairs = mT.selectAll(".chair_sp, .chair_sid");
+			var rings = mT.select("#t_rings");
+			// console.log(rings);
+			// rings.dblclick(function(e){
+			// 	e.stopPropagation();
+			// 	this.attr('fill', colors[currentC.attr('cc')]);
+			// });
+			for (var i = 0, tcc = t_cloth.length; i < tcc; i++) {
+				t_cloth[i].dblclick(function(e){
+					this.attr('fill', colors[currentC.attr('cc')]);
+				});
+			}
+			for (var i = 0, chc = chairs.length; i < chc; i++) {
+				chairs[i].dblclick(function(e){
+					for (var j = 0; j < chc; j++) {
+						chairs[j].attr('fill', colors[currentC.attr('cc')]);
+					}
+				});
+			}
 		});
 	}
 
