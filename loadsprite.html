@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	
+	<script src="/js/snap.svg-min.js"></script>
+	<script src="/js/snaptut-freetransform.js"></script>
+	<script>
+		var paper = Snap(window.innerWidth, window.innerHeight);
+		// var area = paper.svg().addClass('radialnav');
+		// var jContainer = area.g();
+		var g = paper.group();
+		// var objOrd = [];
+		var svgRepo = {};
+		var iconRepo = {};
+		// Snap.load('svg/main.svg', function(f){
+		// 	svgRepo.garland = f.select('#garland');
+		// 	svgRepo.t_table = f.select('#t_table');
+		// 	svgRepo.screnn = f.select('#screnn');
+		// 	svgRepo.ball_1 = f.select('#ball_y');
+		// 	svgRepo.ball_2 = f.select('#ball_g');
+		// });
+
+		Snap.load('svg/icons.svg', function(f){
+		iconRepo.inBefore = f.select('#icon_insertbefore');
+		iconRepo.inAfter = f.select('#icon_insertafter');
+		iconRepo.copy = f.select('#icon_copy');
+		//iconRepo.palette = f.select('#icon_palette');
+		iconRepo.flip = f.select('#icon_flip');
+		iconRepo.delete = f.select('#icon_delete');
+		iconRepo.jremove = f.select('#icon_jremove');
+	});
+
+		//console.log(svgRepo);
+		var garland = g.append(iconRepo.flip);
+
+		function moveZ(obj, dir){
+			var lOr = objOrd.length;
+			
+			if( lOr>1){
+				for(var i = 0;i<lOr;i++){console.log(objOrd[i].attr('id'));
+					if(obj == objOrd[i]){
+						if((i==0 && dir == 'after') || (i==lOr-1 && dir == 'before')){
+							return;
+						}else{
+							var tmpI = (dir == 'after') ? i-1 : i+1;
+							var tmp = objOrd[tmpI];
+							if(dir == 'after')
+								obj.after(tmp);
+							else
+								obj.before(tmp);
+							objOrd[tmpI]=obj;
+							objOrd[i]=tmp;
+						}
+						return;
+					}
+				}
+			}
+		}
+
+		function makeJoystik(e){
+			var rP = 60, nIcons = 6, cAngle = 0, sAngle = 360/nIcons, x1, y1, x0 = e.offsetX, y0 = e.offsetY;
+			for (var i = 0; i < 6; i++) {
+
+				x1 = x0 + rP*Math.cos(degToRad(cAngle));
+				y1 = y0 + rP*Math.sin(degToRad(cAngle));
+				var bCircle = paper.circle(x1, y1, 20).attr({fill:'#4e8ee3', /*filter: fBlur,*/stroke:'#267', strokeWidth:1})
+				jContainer.add(bCircle);
+				//var bIcon = mainSc.append(iconRep[i]);
+				//iconRep[i].transform('t'+x1+','+y1 + ' ' + 's2');
+				//var sI = bIcon.getBBox();
+				//bIcon.transform('t'+(x1-sI.w/2)+','+(y1-sI.h/2));
+
+
+				//work variant
+				// mainSc.append(iconRep[i]);
+				// var sI = iconRep[i].getBBox();
+				// iconRep[i].transform('t'+(x1-sI.w/2)+','+(y1-sI.h/2));
+				//mainSc.group(bCircle, btns[i]);
+				cAngle += sAngle;
+			}
+		}
+		function degToRad (deg) { return deg / 180 * Math.PI; }
+
+	</script>
+	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</body>
+</html>

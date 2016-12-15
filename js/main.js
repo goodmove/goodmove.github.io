@@ -26,33 +26,33 @@ window.onload = function() {
 		iconNames = ['ic_move', 'ic_color_lens', 'ic_copy', 'ic_delete', 'ic_flip_black', 'ic_group_work'],
 		gradients = {
 			c1: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#fff-#ded1d1-#9d9797"),
-			c2: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#FF99CC"),
-			c3: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#CC6666"),
+			c2: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#FF99CC"),
+			c3: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#CC6666"),
 			c4: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e"),
-			c5: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#FF6633"),
-			c6: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#FFCCCC"),
-			c7: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#993333"),
-			c8: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#663333"),
+			c5: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#FF6633"),
+			c6: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#FFCCCC"),
+			c7: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#993333"),
+			c8: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#663333"),
 			c9: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#ffdd7f-#ffbf0f-#fabb0d"),
-			c10: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#FFCC33"),
-			c11: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#33CC66"),
-			c12: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#33CC99"),
-			c13: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#99CC33"),
-			c14: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#339933"),
-			c15: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#336633"),
-			c16: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#006666"),
-			c17: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#339999"),
-			c18: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#3399CC"),
-			c19: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#336699"),
-			c20: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#6699CC"),
-			c21: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#9966CC"),
-			c22: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#663399"),
-			c23: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#333399"),
-			c24: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#CC6633"),
-			c25: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#663333"),
-			c26: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#CCFFFF"),
-			c27: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#999999"),
-			c28: mainSc.gradient("r(0.5, 0.5, 0.5)#fff-#333333"),
+			c10: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#FFCC33"),
+			c11: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#33CC66"),
+			c12: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#33CC99"),
+			c13: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#99CC33"),
+			c14: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#339933"),
+			c15: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#336633"),
+			c16: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#006666"),
+			c17: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#339999"),
+			c18: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#3399CC"),
+			c19: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#336699"),
+			c20: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#6699CC"),
+			c21: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#9966CC"),
+			c22: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#663399"),
+			c23: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#333399"),
+			c24: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#CC6633"),
+			c25: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#663333"),
+			c26: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#CCFFFF"),
+			c27: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#999999"),
+			c28: mainSc.gradient("r(0.5, 0.5, 0.2)#fff-#333333"),
 		},
 		stPX = 70,
 		stPY = 640,
@@ -90,9 +90,10 @@ window.onload = function() {
 	var currentC = mainSc.rect(5, 620, 42, 84).attr({stroke: "#000", strokeWidth: 3, fill: colors.c4, cc: "c4"});
 	
 	Snap.load('svg/icons.svg', function(f){
-		iconRepo.inBefore = f.select('#icon_insertbefore');
-		iconRepo.inAfter = f.select('#icon_insertafter');
+		// iconRepo.inBefore = f.select('#icon_insertbefore');
+		// iconRepo.inAfter = f.select('#icon_insertafter');
 		iconRepo.copy = f.select('#icon_copy');
+		iconRepo.scale = f.select('#icon_scale');
 		//iconRepo.palette = f.select('#icon_palette');
 		iconRepo.flip = f.select('#icon_flip');
 		iconRepo.delete = f.select('#icon_delete');
@@ -161,13 +162,41 @@ window.onload = function() {
 	
 	var sidebarSc = document.getElementById('screen-section');
 	sidebarSc.onclick=function(){
-		Snap.load("svg/screen.svg", function(f){
+		Snap.load("svg/screen_ready.svg", function(f){
 			var mSc = mainSc.group();
 			mSc.append(f).drag();
 			objOrd.push(mSc);
 			mSc.click(function(e){
 				makeJoystik(e, this);
 			});
+			var ribbon = mSc.selectAll("#_1563766051712 .scr_bl1, #_1563766051712 .scr_bl1_dark, #_1563766051712 .scr_bl1_light");
+			for (var i = 0, rbc = ribbon.length; i < rbc; i++) {
+				ribbon[i].dblclick(function(e){
+					for (var j = 0; j < rbc; j++) {
+						if(ribbon[j].hasClass('scr_bl1_dark'))
+							ribbon[j].attr({fill: '#000', opacity: .5});
+						else if(ribbon[j].hasClass('scr_bl1_light'))
+							ribbon[j].attr({fill: colors[currentC.attr('cc')], opacity: .5});
+						else
+							ribbon[j].attr({fill: colors[currentC.attr('cc')]});
+					}
+					
+				});
+			}
+			var shleif = mSc.selectAll("#_1563766051712 .scr_shleif, #_1563766051712 .scr_shleif_l, #_1563766051712 .scr_shleif_d");
+			for (var i = 0, shbc = shleif.length; i < shbc; i++) {
+				shleif[i].dblclick(function(e){
+					for (var j = 0; j < shbc; j++) {
+						if(shleif[j].hasClass('scr_shleif_d'))
+							shleif[j].attr('fill', colors[currentC.attr('cc')]);
+						else if(shleif[j].hasClass('scr_shleif_l'))
+							shleif[j].attr({fill: colors[currentC.attr('cc')], opacity: .5});
+						else
+							shleif[j].attr({fill: colors[currentC.attr('cc')], opacity: .75});
+					}
+					
+				});
+			}
 		});
 	}
 
@@ -214,10 +243,52 @@ window.onload = function() {
 					removeJoystik();
 				});
 			}
+			if(icon == 'scale'){
+				btn.click(function(e){
+					//function addHandleFunc() {
+						var dragging = 0;
+						var handleGroup;
+						//var obj = obj;
+
+						var start = function() {
+					        obj.data('origTransform', obj.transform().local);
+						}
+
+						var move = function(dx,dy) {
+					        var scale = 1 + dx / 50;
+					        obj.attr({
+					            transform: obj.data('origTransform') + (obj.data('origTransform') ? "S" : "s") + scale
+					        });
+						}
+
+						var stop = function() {
+							//dragging = 0;
+			                mainSc.append(obj);
+			                handleGroup.selectAll('handler').remove();
+			                handleGroup.remove();
+						};
+
+				        if( dragging == 0 ) {
+			                dragging = 1;
+			                var bb = obj.getBBox();
+			                var handle = new Array();
+			                handle[0] = mainSc.circle(bb.x,bb.y,10).attr({class: 'handler'});;
+			                handle[1] = mainSc.circle(bb.x+bb.width, bb.y, 10).attr({class: 'handler'});
+			                handleGroup = mainSc.group(this, handle[0], handle[1]);
+			                handleGroup.drag(move,start,stop);
+				        } else {
+			                dragging = 0;
+			                mainSc.append(this);
+			                handleGroup.selectAll('handler').remove();
+			                handleGroup.remove();
+				        }
+					//}
+					removeJoystik();
+				});
+			}
 			if(icon == 'inBefore'){
 				btn.click(function(e){
 					var lOr = objOrd.length;
-					//el maybe first or last
 					if( lOr>1){
 						for(var i = 0;i<lOr;i++){
 							if(obj == objOrd[i]){
