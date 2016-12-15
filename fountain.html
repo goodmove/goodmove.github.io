@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	
+	<script src="/js/snap.svg-min.js"></script>
+	<script src="/js/snaptut-freetransform.js"></script>
+	<script>
+		var paper = Snap(window.innerWidth, window.innerHeight);
+		// var area = paper.svg().addClass('radialnav');
+		// var jContainer = area.g();
+		// var objOrd = [];
+		var itemBall = 0;
+		var gr = paper.gradient("r(0.3, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e")
+		paper.click(function(e){
+			if(e.target.tagName == 'svg'){
+				var path = paper.
+							 path('M '+e.offsetX+','+e.offsetY+' '
+					+'T '+(e.offsetX)+','+(e.offsetY+70)+' '
+					//+'T '+(e.offsetX)+','+(e.offsetY+200)+' '
+					+' T '+(window.innerWidth/2)+','+(window.innerHeight-80)
+					+' L '+(window.innerWidth/2)+','+(window.innerHeight)
+					)
+				.attr({fill: "transparent", stroke: "#ccc", strokeWidth: 2});
+				if(itemBall==0){
+					paper.circle(window.innerWidth/2, window.innerHeight,20).attr({fill:'#ff0'});
+				}
+				var circle = paper.ellipse(e.offsetX,e.offsetY,50,70)
+									.attr({fill:gr, id:'circle'})
+									.drag(
+											function(dx, dy, x, y, e){
+												this.attr({cx: x, cy: y});
+												// currentNode = pathArray[this.data()['i']];
+												path.attr('d',
+													'M '+e.offsetX+','+e.offsetY+' '
+					+'T '+(e.offsetX)+','+(e.offsetY+70)+' '
+					+' T '+(window.innerWidth/2)+','+(window.innerHeight-80)
+					+' L '+(window.innerWidth/2)+','+(window.innerHeight)
+													);
+												// currentNode.x = x;
+												//currentNode.y = y;
+												//updatePath();
+											}
+										);
+				itemBall++;
+			}
+		});
+
+		// var circle = paper.circle(120,120,50).attr({fill:"#f00",stroke:"#000",strokeWidth:3, id:'circle'}).drag();
+		// objOrd.push(circle);
+		// circle.click(function(){
+		// 	moveZ(this, 'before');
+		// });
+		// var circle2 = paper.circle(150,120,60).attr({fill:"#222",stroke:"#000",strokeWidth:3, id:'circle2'}).drag();
+		// objOrd.push(circle2);
+		// circle2.click(function(){
+		// 	moveZ(this, 'before');
+		// });
+		// var rect = paper.rect(120,120,60,50).attr({fill:"#f00",stroke:"#000",strokeWidth:3, id:'rect'}).drag();
+		// objOrd.push(rect);
+		// rect.click(function(){
+		// 	moveZ(this, 'before');
+		// });
+		// var rect2 = paper.rect(140,150,80,100).attr({fill:"#f55",stroke:"#000",strokeWidth:3, id:'rect2'}).drag();
+		// objOrd.push(rect2);
+		// rect2.click(function(){
+		// 	moveZ(this, 'before');
+		// });
+		// circle.click(function(){
+		// 	this.before(rect);
+		// });
+		// rect.click(function(){
+		// 	this.before(circle);
+		// });
+
+		function moveZ(obj, dir){
+			var lOr = objOrd.length;
+			
+			if( lOr>1){
+				for(var i = 0;i<lOr;i++){console.log(objOrd[i].attr('id'));
+					if(obj == objOrd[i]){
+						if((i==0 && dir == 'after') || (i==lOr-1 && dir == 'before')){
+							return;
+						}else{
+							var tmpI = (dir == 'after') ? i-1 : i+1;
+							var tmp = objOrd[tmpI];
+							if(dir == 'after')
+								obj.after(tmp);
+							else
+								obj.before(tmp);
+							objOrd[tmpI]=obj;
+							objOrd[i]=tmp;
+						}
+						return;
+					}
+				}
+			}
+		}
+
+		function makeJoystik(e){
+			var rP = 60, nIcons = 6, cAngle = 0, sAngle = 360/nIcons, x1, y1, x0 = e.offsetX, y0 = e.offsetY;
+			for (var i = 0; i < 6; i++) {
+
+				x1 = x0 + rP*Math.cos(degToRad(cAngle));
+				y1 = y0 + rP*Math.sin(degToRad(cAngle));
+				var bCircle = paper.circle(x1, y1, 20).attr({fill:'#4e8ee3', /*filter: fBlur,*/stroke:'#267', strokeWidth:1})
+				jContainer.add(bCircle);
+				//var bIcon = mainSc.append(iconRep[i]);
+				//iconRep[i].transform('t'+x1+','+y1 + ' ' + 's2');
+				//var sI = bIcon.getBBox();
+				//bIcon.transform('t'+(x1-sI.w/2)+','+(y1-sI.h/2));
+
+
+				//work variant
+				// mainSc.append(iconRep[i]);
+				// var sI = iconRep[i].getBBox();
+				// iconRep[i].transform('t'+(x1-sI.w/2)+','+(y1-sI.h/2));
+				//mainSc.group(bCircle, btns[i]);
+				cAngle += sAngle;
+			}
+		}
+		function degToRad (deg) { return deg / 180 * Math.PI; }
+
+	</script>
+	<script>//document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</body>
+</html>

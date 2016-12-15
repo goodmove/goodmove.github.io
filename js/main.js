@@ -159,7 +159,6 @@ window.onload = function() {
 		});
 	}
 
-	
 	var sidebarSc = document.getElementById('screen-section');
 	sidebarSc.onclick=function(){
 		Snap.load("svg/screen_ready.svg", function(f){
