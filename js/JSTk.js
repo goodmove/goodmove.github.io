@@ -1,44 +1,47 @@
-var Joystick = function(paper, e, obj){
+var Joystick = function(paper, event, obj, icons){
 	this.jContainer;
+	this.area;
 	this.radius = 60;
 	this.nIcons = 6;
 	this.cAngle = 6;
-	this.sAngle = 360/nIcons;
-	this.x0 = this.event.offsetX;
-	this.y0 = this.event.offsetY;
-	this.iconRepo = {};
-    Snap.load('svg/icons.svg', function(f){
-		// this.iconRepo.inBefore = f.select('#icon_insertbefore');
-		// this.iconRepo.inAfter = f.select('#icon_insertafter');
-		this.iconRepo.copy = f.select('#icon_copy');
-		this.iconRepo.scale = f.select('#icon_scale');
-		//this.iconRepo.palette = f.select('#icon_palette');
-		this.iconRepo.flip = f.select('#icon_flip');
-		this.iconRepo.delete = f.select('#icon_delete');
-		this.iconRepo.jremove = f.select('#icon_jremove');
-	});
+	this.sAngle = 360/this.nIcons;
+	this.x0 = event.offsetX;
+	this.y0 = event.offsetY;
+	this.iconRepo = icons;
 
-	this.remove = function(){
-		this.jContainer.clear();
+   	this.destroy = function(){
+		var jtks = paper.selectAll('svg.radialnav');
+		if(jtks.length>0){
+			for (var i = 0, hm = jtks.length; i < hm; i++) {
+				jtks[i].remove();
+			}
+			//this.area.remove();
+		}
 	};
 
 	this.init = function(){
-		var area = paper.svg().addClass('radialnav');
-		this.jContainer = area.g();
+
+		var _this = this;
+		_this.destroy();
+		this.area = paper.svg().addClass('radialnav');
+		this.jContainer = this.area.g();
 	
 			
 		for(var icon in this.iconRepo){
-			var x1 = this.x0 + this.rP*Math.cos(degToRad(this.cAngle));
-			var y1 = this.y0 + this.rP*Math.sin(degToRad(this.cAngle));
-			var bCircle = paper.circle(x1, y1, 20).attr({fill:'#4e8ee3', /*filter: fBlur,*/stroke:'#267', strokeWidth:1})
-			var btn = this.jContainer.g(bCircle,this.iconRepo[icon].transform('t'+(x1-12)+','+(y1-12))).attr('id', 'icon_'+icon);
+			//if(icon.node.hasClass('background')) return false;
+			var x1 = this.x0 + this.radius*Math.cos(this.cAngle/180 * Math.PI),
+				y1 = this.y0 + this.radius*Math.sin(this.cAngle/180 * Math.PI),
+				//TODO add fon in sprite
+				bCircle = this.area.circle(x1, y1, 20).attr({fill:'#4e8ee3', stroke:'#267', strokeWidth:1}).addClass('background'),
+				//backgr = this.iconRepo['back'].clone().transform('t'+(x1-10)+','+(y1-10)),
+				btn = this.jContainer.g(bCircle,this.iconRepo[icon].transform('t'+(x1-12)+','+(y1-12))).attr('id', 'icon_'+icon);
 			this.cAngle += this.sAngle;
 
 			if(icon == 'delete'){
 				btn.click(function(e){
 					e.stopPropagation();
 					obj.remove();
-					removeJoystik();
+					_this.destroy();
 				});
 			}
 			if(icon == 'copy'){
@@ -46,25 +49,22 @@ var Joystick = function(paper, e, obj){
 					var clone = obj.clone().drag(),
 						size = clone.getBBox();
 					objOrd.push(clone);
-					clone.transform('t'+size.width+20+','+sClY);
+					clone.transform('t '+10+','+10);
 					clone.click(function(e){
-						Joystick(paper,e, this);
+						new Joystick(paper, e, this, icons).init();
 					});
-					sClY+=40;
-					removeJoystik();
+					_this.destroy();
 				});
 			}
 			if(icon == 'flip'){
 				btn.click(function(e){
 					var size = obj.getBBox();
-					obj.transform('t'+size.width+20+','+sClY).drag();
+					obj.transform('t'+size.width+20+','+10).drag();
 					obj.transform('s -1,1');
 					obj.click(function(e){
-						Joystick(paper,e, this);
+						new Joystick(paper, e, this, icons).init();
 					});
-
-					sClY+=40;
-					removeJoystik();
+					_this.destroy();
 				});
 			}
 			if(icon == 'inBefore'){
@@ -112,7 +112,7 @@ var Joystick = function(paper, e, obj){
 			}
 			if(icon == 'jremove'){
 				btn.click(function(e){
-					this.remove();
+					_this.destroy();
 				});
 			}
 		}

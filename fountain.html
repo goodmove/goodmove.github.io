@@ -19,7 +19,7 @@
 	          });
 	    }));
 	    var iconRepo = {};
-	    Snap.load('svg/icons.svg', function(f){
+	    Snap.load('svg/icons_new.svg', function(f){
 			// iconRepo.inBefore = f.select('#icon_insertbefore');
 			// iconRepo.inAfter = f.select('#icon_insertafter');
 			iconRepo.copy = f.select('#icon_copy');
@@ -28,14 +28,15 @@
 			iconRepo.flip = f.select('#icon_flip');
 			iconRepo.delete = f.select('#icon_delete');
 			iconRepo.jremove = f.select('#icon_jremove');
+			//iconRepo.back = f.select('#icon_back');
 		});
-		var area = mainSc.svg().addClass('radialnav');
-		var jContainer = area.g();
-		var objOrd = [],
-		sClY = 40;
+
+		var objOrd = [];
 		var ballRepo = [];
 		var itemBall = 0;
-		var gr = mainSc.gradient("r(0.3, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e")
+		var bG = 0;
+		var gr = mainSc.gradient("r(0.3, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e");
+
 		mainSc.click(function(e){
 			if(e.target.tagName == 'svg'){
 				var path = 
@@ -46,6 +47,10 @@
 						)
 						.attr({fill: "transparent", stroke: "#ccc", strokeWidth: 2});
 				if(itemBall==0){
+					bG = mainSc.g().drag();
+					bG.click(function(e){
+						new Joystick(mainSc, e, this, iconRepo).init();
+					});
 					var osn = mainSc.circle(window.innerWidth/2, window.innerHeight,20).attr({fill:'#ff0'}).addClass('osnova');
 					ballRepo.push(osn);
 				}
@@ -70,17 +75,16 @@
 		});
 
 		 var circle55 = mainSc.circle(120,120,50).attr({fill:"#f00",stroke:"#000",strokeWidth:3, id:'circle'}).drag();
-		 var bG = mainSc.g().drag();
 		 circle55.click(function(){
 		 	ballRepo.forEach(
 		 		function(item,i,arr){
 		 			if(item.hasClass('ball')) bG.add(item.undrag());
 		 			else bG.add(item);
-		 		})
+		 		});
+			ballRepo = [];
+			itemBall = 0;
 		 });
-		 bG.click(function(e){
-		 	makeJoystik(e, this);
-		 });
+
 		// objOrd.push(circle);
 		// circle.click(function(){
 		// 	moveZ(this, 'before');
@@ -133,7 +137,8 @@
 
 		function degToRad (deg) { return deg / 180 * Math.PI; }
 
+		
 	</script>
-	<script src="js/joystick.js"></script>
+	<script src="js/JSTk.js"></script>
 </body>
 </html>
