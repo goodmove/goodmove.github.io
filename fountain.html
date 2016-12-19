@@ -9,108 +9,80 @@
 <body>
 	
 	<script src="/js/snap.svg-min.js"></script>
-	<script src="/js/snaptut-freetransform.js"></script>
+	<script src="js/Joystick.js"></script>
+	<script src="js/Palette.js"></script>
+	<script src="js/Repo.js"></script>
 	<script>
-		var mainSc = Snap(window.innerWidth, window.innerHeight);
-		window.addEventListener('resize', (function(e) {
-	          return mainSc.attr({
+	window.onload = function() {
+		(function App(){
+			var paper = Snap(window.innerWidth, window.innerHeight),
+				iconRepo = {},
+			    colors = {c1: "#ffffff",c2: "#FF99CC",c3: "#CC6666",c4: "#c4140e",c5: "#FF6633",c6: "#FFCCCC",c7: "#993333",c8: "#663333",c9: "#fabb0d",c10: "#FFCC33",c11: "#33CC66",c12: "#33CC99",c13: "#99CC33",c14: "#339933",c15: "#336633",c16: "#006666",c17: "#339999",c18: "#3399CC",c19: "#336699",c20: "#6699CC",c21: "#9966CC",c22: "#663399",c23: "#333399",c24: "#CC6633",c25: "#663333",c26: "#CCFFFF",c27: "#999999",c28: "#333333"},
+			    gradients = {c1: paper.gradient("r(0.5, 0.5, 0.5)#fff-#fff-#ded1d1-#9d9797"),c2: paper.gradient("r(0.5, 0.5, 0.2)#fff-#FF99CC"),c3: paper.gradient("r(0.5, 0.5, 0.2)#fff-#CC6666"),c4: paper.gradient("r(0.5, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e"),c5: paper.gradient("r(0.5, 0.5, 0.2)#fff-#FF6633"),c6: paper.gradient("r(0.5, 0.5, 0.2)#fff-#FFCCCC"),c7: paper.gradient("r(0.5, 0.5, 0.2)#fff-#993333"),c8: paper.gradient("r(0.5, 0.5, 0.2)#fff-#663333"),c9: paper.gradient("r(0.5, 0.5, 0.5)#fff-#ffdd7f-#ffbf0f-#fabb0d"),c10: paper.gradient("r(0.5, 0.5, 0.2)#fff-#FFCC33"),c11: paper.gradient("r(0.5, 0.5, 0.2)#fff-#33CC66"),c12: paper.gradient("r(0.5, 0.5, 0.2)#fff-#33CC99"),c13: paper.gradient("r(0.5, 0.5, 0.2)#fff-#99CC33"),c14: paper.gradient("r(0.5, 0.5, 0.2)#fff-#339933"),c15: paper.gradient("r(0.5, 0.5, 0.2)#fff-#336633"),c16: paper.gradient("r(0.5, 0.5, 0.2)#fff-#006666"),c17: paper.gradient("r(0.5, 0.5, 0.2)#fff-#339999"),c18: paper.gradient("r(0.5, 0.5, 0.2)#fff-#3399CC"),c19: paper.gradient("r(0.5, 0.5, 0.2)#fff-#336699"),c20: paper.gradient("r(0.5, 0.5, 0.2)#fff-#6699CC"),c21: paper.gradient("r(0.5, 0.5, 0.2)#fff-#9966CC"),c22: paper.gradient("r(0.5, 0.5, 0.2)#fff-#663399"),c23: paper.gradient("r(0.5, 0.5, 0.2)#fff-#333399"),c24: paper.gradient("r(0.5, 0.5, 0.2)#fff-#CC6633"),c25: paper.gradient("r(0.5, 0.5, 0.2)#fff-#663333"),c26: paper.gradient("r(0.5, 0.5, 0.2)#fff-#CCFFFF"),c27: paper.gradient("r(0.5, 0.5, 0.2)#fff-#999999"),c28: paper.gradient("r(0.5, 0.5, 0.2)#fff-#333333")},
+				repo = new Repo(),
+				bG,
+				gr = paper.gradient("r(0.3, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e"),
+				groupButton = paper.circle(120,120,50).attr({fill:"#f00",stroke:"#000",strokeWidth:3, id:'circle'}).drag(),
+				palette = new Palette(paper, colors);
+			
+			window.addEventListener('resize', (function(e) {
+	          return paper.attr({
 	            width: window.innerWidth,
 	            height: window.innerHeight
 	          });
-	    }));
-	    var iconRepo = {};
-	    Snap.load('svg/icons_new.svg', function(f){
-			// iconRepo.inBefore = f.select('#icon_insertbefore');
-			// iconRepo.inAfter = f.select('#icon_insertafter');
-			iconRepo.copy = f.select('#icon_copy');
-			iconRepo.scale = f.select('#icon_scale');
-			//iconRepo.palette = f.select('#icon_palette');
-			iconRepo.flip = f.select('#icon_flip');
-			iconRepo.delete = f.select('#icon_delete');
-			iconRepo.jremove = f.select('#icon_jremove');
-			//iconRepo.back = f.select('#icon_back');
-		});
+		    }));
+		    
+		    Snap.load('svg/icons_new.svg', function(f){
+				iconRepo.copy = f.select('#icon_copy');
+				iconRepo.scale = f.select('#icon_scale');
+				iconRepo.flip = f.select('#icon_flip');
+				iconRepo.delete = f.select('#icon_delete');
+				iconRepo.jremove = f.select('#icon_jremove');
+			});
 
-		var objOrd = [];
-		var ballRepo = [];
-		var itemBall = 0;
-		var bG = 0;
-		var gr = mainSc.gradient("r(0.3, 0.5, 0.5)#fff-#ff6375-#e30d11-#c4140e");
+		    palette.init();
 
-		mainSc.click(function(e){
-			if(e.target.tagName == 'svg'){
-				var path = 
-					mainSc.path('M '+e.offsetX+','+e.offsetY+' '
-						+'T '+(e.offsetX)+','+(e.offsetY+70)+' '
-						+' T '+(window.innerWidth/2)+','+(window.innerHeight-80)
-						+' L '+(window.innerWidth/2)+','+(window.innerHeight)
-						)
-						.attr({fill: "transparent", stroke: "#ccc", strokeWidth: 2});
-				if(itemBall==0){
-					bG = mainSc.g().drag();
-					bG.click(function(e){
-						new Joystick(mainSc, e, this, iconRepo).init();
-					});
-					var osn = mainSc.circle(window.innerWidth/2, window.innerHeight,20).attr({fill:'#ff0'}).addClass('osnova');
-					ballRepo.push(osn);
+		    paper.click(function(e){
+				if(e.target.tagName == 'svg'){
+					var nitka = paper.path(`M ${e.offsetX},${e.offsetY} T ${e.offsetX},${e.offsetY+70} ${window.innerWidth/2},${window.innerHeight-220} L ${window.innerWidth/2},${window.innerHeight-140}`).attr({fill: "transparent", stroke: "#ccc", strokeWidth: 2});
+					if(repo.getCount()==0){
+						bG = paper.g().drag();
+						bG.click(function(e){
+							new Joystick(paper, e, this, iconRepo).init();
+						});
+						repo.add(paper.circle(window.innerWidth/2, window.innerHeight-140,20).attr({fill:'#ff0'}).addClass('osnova'));
+					}
+					repo.add(nitka.addClass('nitka'));
+					// paper.path(
+					// 	`M ${e.offsetX+30} ${e.offsetY} C ${e.offsetX+150} ${e.offsetY}, ${e.offsetX+100} ${e.offsetY+180}, ${e.offsetX+30} ${e.offsetY+180}, S ${e.offsetX-100} ${e.offsetY}, ${e.offsetX+30} ${e.offsetY} Z`)
+					// .attr({fill: "transparent", stroke: "#ccc", strokeWidth: 2}).drag();
+					repo.add(paper.ellipse(e.offsetX,e.offsetY,50,60)
+										.attr({fill:gr, id:'circle'}).addClass('ball')
+										.dblclick(function(){
+											this.attr({fill: gradients[palette.getGradientKey()]});
+										})
+										.drag(
+												function(dx, dy, x, y, e){
+													this.attr({cx: x, cy: y});
+													nitka.attr('d', `M ${e.offsetX},${e.offsetY} T ${(e.offsetX)},${(e.offsetY+70)} ${(window.innerWidth/2)},${(window.innerHeight-220)} L ${(window.innerWidth/2)},${(window.innerHeight-140)}`);
+												}
+											)
+								);
+					
 				}
-				ballRepo.push(path.addClass('nitka'));
-				ballRepo.push(mainSc.ellipse(e.offsetX,e.offsetY,50,70)
-									.attr({fill:gr, id:'circle'}).addClass('ball')
-									.drag(
-											function(dx, dy, x, y, e){
-												this.attr({cx: x, cy: y});
-												path.attr('d',
-													'M '+e.offsetX+','+e.offsetY+' '
-													+'T '+(e.offsetX)+','+(e.offsetY+70)+' '
-													+' T '+(window.innerWidth/2)+','+(window.innerHeight-80)
-													+' L '+(window.innerWidth/2)+','+(window.innerHeight)
-													);
-											}
-										)
-							);
-				itemBall++;
-				
-			}
-		});
+			});
 
-		 var circle55 = mainSc.circle(120,120,50).attr({fill:"#f00",stroke:"#000",strokeWidth:3, id:'circle'}).drag();
-		 circle55.click(function(){
-		 	ballRepo.forEach(
-		 		function(item,i,arr){
-		 			if(item.hasClass('ball')) bG.add(item.undrag());
-		 			else bG.add(item);
-		 		});
-			ballRepo = [];
-			itemBall = 0;
-		 });
+			groupButton.click(function(){
+				repo.objs.forEach(
+					function(item,i,arr){
+						if(item.hasClass('ball')) bG.add(item.undrag());
+						else bG.add(item);
+					});
+			repo.clear();
+			});
 
-		// objOrd.push(circle);
-		// circle.click(function(){
-		// 	moveZ(this, 'before');
-		// });
-		// var circle2 = mainSc.circle(150,120,60).attr({fill:"#222",stroke:"#000",strokeWidth:3, id:'circle2'}).drag();
-		// objOrd.push(circle2);
-		// circle2.click(function(){
-		// 	moveZ(this, 'before');
-		// });
-		// var rect = mainSc.rect(120,120,60,50).attr({fill:"#f00",stroke:"#000",strokeWidth:3, id:'rect'}).drag();
-		// objOrd.push(rect);
-		// rect.click(function(){
-		// 	moveZ(this, 'before');
-		// });
-		// var rect2 = mainSc.rect(140,150,80,100).attr({fill:"#f55",stroke:"#000",strokeWidth:3, id:'rect2'}).drag();
-		// objOrd.push(rect2);
-		// rect2.click(function(){
-		// 	moveZ(this, 'before');
-		// });
-		// circle.click(function(){
-		// 	this.before(rect);
-		// });
-		// rect.click(function(){
-		// 	this.before(circle);
-		// });
-
+		})();
+	    
 		function moveZ(obj, dir){
 			var lOr = objOrd.length;
 			
@@ -137,8 +109,8 @@
 
 		function degToRad (deg) { return deg / 180 * Math.PI; }
 
-		
+	}
 	</script>
-	<script src="js/JSTk.js"></script>
+	
 </body>
 </html>
