@@ -52,22 +52,31 @@
 						});
 						repo.add(paper.circle(window.innerWidth/2, window.innerHeight-140,20).attr({fill:'#ff0'}).addClass('osnova'));
 					}
-					repo.add(nitka.addClass('nitka'));
+					
 					// paper.path(
 					// 	`M ${e.offsetX+30} ${e.offsetY} C ${e.offsetX+150} ${e.offsetY}, ${e.offsetX+100} ${e.offsetY+180}, ${e.offsetX+30} ${e.offsetY+180}, S ${e.offsetX-100} ${e.offsetY}, ${e.offsetX+30} ${e.offsetY} Z`)
 					// .attr({fill: "transparent", stroke: "#ccc", strokeWidth: 2}).drag();
-					repo.add(paper.ellipse(e.offsetX,e.offsetY,50,60)
-										.attr({fill:gr, id:'circle'}).addClass('ball')
-										.dblclick(function(){
-											this.attr({fill: gradients[palette.getGradientKey()]});
-										})
-										.drag(
-												function(dx, dy, x, y, e){
-													this.attr({cx: x, cy: y});
-													nitka.attr('d', `M ${e.offsetX},${e.offsetY} T ${(e.offsetX)},${(e.offsetY+70)} ${(window.innerWidth/2)},${(window.innerHeight-220)} L ${(window.innerWidth/2)},${(window.innerHeight-140)}`);
-												}
-											)
-								);
+					var ball = paper.ellipse(e.offsetX,e.offsetY,50,60).attr({fill:gr, id:'circle'}).addClass('ball')
+									.dblclick(function(){
+										this.attr({fill: gradients[palette.getGradientKey()]});
+									})
+									.drag(
+										function(dx, dy, x, y, e){
+											this.attr({cx: x, cy: y});
+											nitka.attr('d', `M ${e.offsetX},${e.offsetY} T ${(e.offsetX)},${(e.offsetY+70)} ${(window.innerWidth/2)},${(window.innerHeight-220)} L ${(window.innerWidth/2)},${(window.innerHeight-140)}`);
+										}
+									);
+					repo.add(ball);
+					repo.add(nitka.addClass('nitka'));
+					var fb = paper.g(nitka);
+					var fbd = function(dx, dy, x, y, e){
+											this.select('.ball').attr({cx: x, cy: y});
+											this.select('.nitka').attr('d', `M ${e.offsetX},${e.offsetY} T ${(e.offsetX)},${(e.offsetY+70)} ${(window.innerWidth/2)},${(window.innerHeight-220)} L ${(window.innerWidth/2)},${(window.innerHeight-140)}`);
+										};
+					fb.add(ball).drag(fbd).click(function(){
+										new Joystick(paper, e, this, iconRepo, fbd).init();
+									});
+									
 					
 				}
 			});

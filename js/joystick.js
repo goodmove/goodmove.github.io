@@ -1,13 +1,14 @@
-function Joystick(paper, event, obj, icons){
+function Joystick(paper, event, obj, icons, fbd = null){
 	var objOrd = [];
+	var box = obj.getBBox();
 	this.jContainer;
 	this.area;
 	this.radius = 60;
 	this.nIcons = 6;
 	this.cAngle = 6;
 	this.sAngle = 360/this.nIcons;
-	this.x0 = event.offsetX;
-	this.y0 = event.offsetY;
+	this.x0 = box.cx;
+	this.y0 = box.cy;
 	this.iconRepo = icons;
 
    	this.destroy = function(){
@@ -46,12 +47,15 @@ function Joystick(paper, event, obj, icons){
 			}
 			if(icon == 'copy'){
 				btn.click(function(e){
-					var clone = obj.clone().drag(),
+					//console.log(obj);
+					var clone = obj.clone(),
 						size = clone.getBBox();
+					//console.log(clone);
+					if(fbd) clone.drag(fbd);
 					objOrd.push(clone);
-					clone.transform('t '+10+','+10);
+					//clone.transform('t '+10+','+10);
 					clone.click(function(e){
-						new Joystick(paper, e, this, icons).init();
+						new Joystick(paper, e, this, icons, fbd).init();
 					});
 					_this.destroy();
 				});
